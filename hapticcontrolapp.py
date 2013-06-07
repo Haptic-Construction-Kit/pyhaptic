@@ -33,7 +33,9 @@ import time
 #   "text" field.  Is there an action other than on_release that I can use to trigger defining the current text.
 #   2.  Altering or referencing variables within the kv. language from the python script can be a pain.  Maybe
 #   convert the "Builder.load_string" stuff to python classes/objects instead and just don't use the kv language.
-#   3.  
+#   3. Find a cleaner way of generating the togglebuttons to define the rhythm.
+#   4. Track state of toggle buttons
+#   5. Provide user option to add an additional row of buttons to define a more intricate rhythym. 
 
 Builder.load_string("""
 
@@ -111,10 +113,127 @@ Builder.load_string("""
     TabbedPanelItem:
         text: 'Define Rhythm'
         BoxLayout:
+            orientation: 'vertical'
+            canvas:
+                Rectangle:
+                    pos: 5, self.center_y + 175
+                    size: self.width - 10, 5
+                Rectangle:
+                    pos: 5, self.center_y - 175
+                    size: self.width - 10, 5
             Label:
-                text: 'Second tab content area'
-            Button:
-                text: 'Button that does nothing'
+                text: 'Midi-Like Interface'
+                bold: True
+                font_size: 22
+            BoxLayout:
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    state: 'normal'
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+            BoxLayout:
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                ToggleButton:
+                    size_hint: (1, .25)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+            Label:
+                text: 'Each toggle button above represents 50ms of vibration time.'
+            BoxLayout:
+                Label:
+                    text: 'Rhythm Name:'
+                TextInput:
+                    text: 'Enter rhythm name here.'
+                    size_hint: (1, .5)
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+
     
     TabbedPanelItem:
         text: 'Help'
@@ -198,17 +317,20 @@ class ControlLayout(TabbedPanel):
                 break
         print self.qryData
 
-    if os.name == 'posix':
-        commPort = glob.glob('/dev/tty.*')
-        print "Printing current available comm ports.\n"
-        for i in commPort:
-            print i
-
     def fieldUpdate(self, ver, motor, rhythm, mag):
         ver.text = self.qryData[10]
         motor.text = self.qryData[11]
         rhythm.text = self.qryData[12]
         mag.text = self.qryData[13] + self.qryData[14] + self.qryData[15] + self.qryData[16]
+
+    # Need a way for the item list in the above kv spinner to be variable.
+    if os.name == 'posix':
+        commPort = glob.glob('/dev/tty.*')
+        print "Printing current available comm ports.\n"
+        for i in commPort:
+            print i
+    # Need to build in comm post scans for linux and windows.
+
 
 class HapticControlApp(App):
     def build(self):
