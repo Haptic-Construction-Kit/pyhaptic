@@ -13,13 +13,11 @@ class HapticInterface:
     	self.__send('\b0000000000001100')
     def set_binary(self):
     	self.__send("BGN\n")
-    	#self.__send(os.linesep)
     def __send(self, command):
     	self.ser.write(command)
-    	#line = self.ser.read(20)
-    	line = self.ser.readlines()
-    	for x in line:
-    		print x
+        response = self.ser.readlines()
+        if not any("STS 0" in s for s in response):
+    	    print "Error"
     def connect(self):
         self.ser = serial.Serial(self.comm_choice, timeout=1)
         print "Connecting!"
@@ -38,10 +36,9 @@ class HapticInterface:
     #def vibrate(self, motor, rhythm, magnitude, duration):
     def vibrate(self):
     	self.ser.write("\x00\x01\n")
-    	#line = self.ser.readline()
-    	line = self.ser.read(20)
-    	for x in line:
-    		print ord(x)
+    	response = self.ser.read(1)
+        if "\00" not in response:
+            print "Error"
 	def disconnect(self):
 		return 'Disconnect Successful'
 
