@@ -21,18 +21,26 @@ class HapticInterface:
         byte1 = vibrate_type << 4 | (motor & motor_mask)
         byte2 = (rhythm & rhythm_mask) << 5 | (magnitude & magnitude_mask) << 3 | (duration & duration_mask)
         result = struct.pack('>BB', byte1, byte2)
-        print "built command string:" + result
+        print "built command string: " + result
         return result
     def set_ascii(self):
-    	#self.__send('\b0011000000000000')
-    	self.__send('\b0000000000001100')
+        self.ser.write("\x30\x00")
+        response = self.ser.read(1)
+        for x in response:
+            print ord(x)
+        if "\00" not in response:
+            print "Error Switching to ascii"
+        else:
+            self.ascii = True
     def set_binary(self):
     	self.__send("BGN\n")
+        #assume success until we get the exceptions implemented
+        self.ascii = False
     def __send(self, command):
     	self.ser.write(command)
         response = self.ser.readlines()
         if not any("STS 0" in s for s in response):
-    	    print "Error"
+    	    print "Error sending ascii command: " + command
     def connect(self):
         self.ser = serial.Serial(self.comm_choice, timeout=.1)
         print "Connecting!"
@@ -56,7 +64,7 @@ class HapticInterface:
         for x in response:
             print ord(x)
         if "\00" not in response:
-            print "Error"
+            print "Error Vibrating"
 	def disconnect(self):
 		return 'Disconnect Successful'
 
