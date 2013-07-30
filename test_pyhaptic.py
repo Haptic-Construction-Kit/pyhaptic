@@ -19,9 +19,8 @@ if __name__ == '__main__':
     	two_d_display.connect()
     except:
         print "Failed to connect on ..."
-    print "Query All"
-    two_d_display.qry_all()
-    print "Setting Binary"
-    two_d_display.set_binary()
-    print "Vibrating Motor A"
-    two_d_display.vibrate()
+    print "Vibrating Motors"
+    two_d_display.vibrate(0,0,0,1)
+    two_d_display.vibrate(1,0,0,1)
+    two_d_display.vibrate(2,0,0,1)
+    two_d_display.vibrate(3,0,0,1)
