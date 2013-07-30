@@ -34,7 +34,7 @@ class HapticInterface:
         if not any("STS 0" in s for s in response):
     	    print "Error"
     def connect(self):
-        self.ser = serial.Serial(self.comm_choice, timeout=1)
+        self.ser = serial.Serial(self.comm_choice, timeout=.1)
         print "Connecting!"
     def qry_all(self):
     	self.__send("QRY ALL\n")
