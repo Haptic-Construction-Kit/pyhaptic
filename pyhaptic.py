@@ -41,13 +41,24 @@ class HapticInterface:
         response = self.ser.readlines()
         if not any("STS 0" in s for s in response):
     	    print "Error sending ascii command: " + command
+        return response
     def connect(self):
         self.ser = serial.Serial(self.comm_choice, timeout=.1)
         print "Connecting!"
     def qry_all(self):
     	self.__send("QRY ALL\n")
-    def qry_motors(self):
-    	return 'Motors Queried'
+    def qry_number_motors(self):
+        if not (self.ascii): #we need to be in ascii
+            self.set_ascii()
+        self.ser.write("QRY MTR\n")
+        response = self.ser.readline()
+        response_list = response.split(" ")
+        if ((len(response_list) == 3) & (response_list[0] == "RSP")):
+            motors = int(response_list[2])
+        else:
+            motors = 0
+        print 'Motors Queried: ' + str(motors)
+        return motors
     def qry_magnitudes(self):
     	pass
     def qry_rhythms(self):

@@ -1,6 +1,7 @@
 import os
 import glob
 import sys
+import time
 
 from pyhaptic import HapticInterface
 
@@ -12,21 +13,28 @@ def find_comm_port():
         	print i
     	comm_choice = raw_input("\nPlease choose the full path to the comm port that the haptic controller is connected to:") 
     return comm_choice
+
 def function_zero():
     print "running zero"
-    two_d_display.vibrate(0,0,0,1)
-    two_d_display.vibrate(1,0,0,1)
-    two_d_display.vibrate(2,0,0,1)
-    two_d_display.vibrate(3,0,0,1)
-
+    for x in xrange(0, two_d_display.qry_number_motors()):
+        two_d_display.vibrate(x,0,0,1)
+        time.sleep(.1)
     print "completed zero"
 
 def function_one():
     print "running one"
+    for x in xrange(0, two_d_display.qry_number_motors()):
+        two_d_display.vibrate(x,0,0,1)
+        time.sleep(.1)
+    for x in xrange(two_d_display.qry_number_motors(), 0):
+        two_d_display.vibrate(x,0,0,1)
+        time.sleep(.1)
     print "completed one"
 
 def function_two():
     print "running two"
+    for x in xrange(0, two_d_display.qry_number_motors()):
+        two_d_display.vibrate(x,0,0,1)
     print "completed two"
 
 def function_three():
