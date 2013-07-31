@@ -16,6 +16,8 @@ sudo apt-get install python pip
 sudo pip install pyserial
 
 Windows:
+http://www.python.org/download/releases/
+http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyserial
 
 To run:
 double click test_pyhaptic.py or run
