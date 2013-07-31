@@ -8,10 +8,21 @@ from pyhaptic import HapticInterface
 def find_comm_port():
     if os.name == 'posix':
     	comm_port = glob.glob('/dev/tty.*')
-    	print "Printing current available comm ports.\n"
-    	for i in comm_port:
-        	print i
-    	comm_choice = raw_input("\nPlease choose the full path to the comm port that the haptic controller is connected to:") 
+        comm_port.extend( glob.glob('/dev/ttyACM*'))
+        comm_port.extend( glob.glob('/dev/ttyUSB*'))
+    elif os.name == 'nt':
+        available = []
+        for i in range(256):
+            try:
+                s = serial.Serial(i)
+                available.append('COM'+str(i + 1))
+                s.close()
+            except serial.SerialException:
+                pass
+    print "Printing current available comm ports.\n"
+    for i in comm_port:
+        print i
+    comm_choice = raw_input("\nPlease choose the full path to the comm port that the haptic controller is connected to:") 
     return comm_choice
 
 def function_zero():
