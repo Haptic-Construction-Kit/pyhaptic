@@ -2,12 +2,14 @@ import os
 import glob
 import sys
 import time
+import serial
 
 from pyhaptic import HapticInterface
 
 def find_comm_port():
+    comm_port = []
     if os.name == 'posix':
-    	comm_port = glob.glob('/dev/tty.*')
+        comm_port = glob.glob('/dev/tty.*')
         comm_port.extend( glob.glob('/dev/ttyACM*'))
         comm_port.extend( glob.glob('/dev/ttyUSB*'))
     elif os.name == 'nt':
@@ -19,6 +21,7 @@ def find_comm_port():
                 s.close()
             except serial.SerialException:
                 pass
+        comm_port.extend(available)
     print "Printing current available comm ports.\n"
     for i in comm_port:
         print i
