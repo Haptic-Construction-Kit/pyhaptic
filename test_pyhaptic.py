@@ -3,6 +3,9 @@ import glob
 import sys
 import time
 import serial
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 from pyhaptic import HapticInterface
 
@@ -83,7 +86,7 @@ if __name__ == '__main__':
     
     two_d_display = HapticInterface(find_comm_port())
     try:
-    	two_d_display.connect()
+        two_d_display.connect()
     except:
         print "Failed to connect on ..."
         sys.exit(1)
