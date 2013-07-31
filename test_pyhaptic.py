@@ -30,25 +30,55 @@ def find_comm_port():
 
 def function_zero():
     print "running zero"
-    for x in xrange(0, two_d_display.qry_number_motors()):
+    for x in xrange(two_d_display.qry_number_motors()):
         two_d_display.vibrate(x,0,0,1)
         time.sleep(.1)
     print "completed zero"
 
 def function_one():
     print "running one"
-    for x in xrange(0, two_d_display.qry_number_motors()):
+    number = two_d_display.qry_number_motors()
+    for x in xrange(number):
         two_d_display.vibrate(x,0,0,1)
         time.sleep(.1)
-    for x in xrange(two_d_display.qry_number_motors(), 0):
+    for x in reversed(xrange(number-1)):
         two_d_display.vibrate(x,0,0,1)
         time.sleep(.1)
     print "completed one"
 
 def function_two():
     print "running two"
-    for x in xrange(0, two_d_display.qry_number_motors()):
-        two_d_display.vibrate(x,0,0,1)
+    for x in xrange(two_d_display.qry_number_motors()):
+        if x % 8 == 0:
+            two_d_display.vibrate(x,0,0,1)
+    time.sleep(1)
+    for x in xrange(two_d_display.qry_number_motors()):
+        if x % 8 == 1:
+            two_d_display.vibrate(x,0,0,1)
+    time.sleep(1)
+    for x in xrange(two_d_display.qry_number_motors()):
+        if x % 8 == 2:
+            two_d_display.vibrate(x,0,0,1)
+    time.sleep(1)
+    for x in xrange(two_d_display.qry_number_motors()):
+        if x % 8 == 3:
+            two_d_display.vibrate(x,0,0,1)
+    time.sleep(1)
+    for x in xrange(two_d_display.qry_number_motors()):
+        if x % 8 == 4:
+            two_d_display.vibrate(x,0,0,1)
+    time.sleep(1)
+    for x in xrange(two_d_display.qry_number_motors()):
+        if x % 8 == 5:
+            two_d_display.vibrate(x,0,0,1)
+    time.sleep(1)
+    for x in xrange(two_d_display.qry_number_motors()):
+        if x % 8 == 6:
+            two_d_display.vibrate(x,0,0,1)
+    time.sleep(1)
+    for x in xrange(two_d_display.qry_number_motors()):
+        if x % 8 == 7:
+            two_d_display.vibrate(x,0,0,1)
     print "completed two"
 
 def function_three():
