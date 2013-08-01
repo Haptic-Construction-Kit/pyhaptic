@@ -29,7 +29,7 @@ class HapticInterface:
         response = self.ser.read(1)
         if "\00" not in response:
             for x in response:
-                logging.debug('Error Switching to ascii' + ord(x))
+                logging.debug('Error Switching to ascii' + str(x))
         else:
             self.ascii = True
     def set_binary(self):
@@ -85,7 +85,7 @@ class HapticInterface:
         response = self.ser.read(1)
         if "\00" not in response:
             for x in response:
-                logging.debug( 'Error Vibrating' + ord(x) )
+                logging.debug( 'Error Vibrating' + str(x) )
 	def disconnect(self):
 		return 'Disconnect Successful'
 
