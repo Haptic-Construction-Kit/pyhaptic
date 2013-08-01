@@ -1,6 +1,7 @@
 import serial
 import time
 import struct
+import logging
 
 class HapticInterface:
     """Creates instances of haptic devices."""
@@ -21,15 +22,14 @@ class HapticInterface:
         byte1 = vibrate_type << 4 | (motor & motor_mask)
         byte2 = (rhythm & rhythm_mask) << 5 | (magnitude & magnitude_mask) << 3 | (duration & duration_mask)
         result = struct.pack('>BB', byte1, byte2)
-        print "built command string: " + result
+        logging.debug('built command string: ' + result)
         return result
     def set_ascii(self):
         self.ser.write("\x30\x00")
         response = self.ser.read(1)
-        for x in response:
-            print ord(x)
         if "\00" not in response:
-            print "Error Switching to ascii"
+            for x in response:
+                logging.debug('Error Switching to ascii' + ord(x))
         else:
             self.ascii = True
     def set_binary(self):
@@ -40,11 +40,10 @@ class HapticInterface:
     	self.ser.write(command)
         response = self.ser.readlines()
         if not any("STS 0" in s for s in response):
-    	    print "Error sending ascii command: " + command
+    	    logging.debug('Error sending ascii command: ' + command)
         return response
     def connect(self):
         self.ser = serial.Serial(self.comm_choice, timeout=.1)
-        print "Connecting!"
     def qry_all(self):
     	self.__send("QRY ALL\n")
     def qry_number_motors(self):
@@ -57,7 +56,7 @@ class HapticInterface:
             motors = int(response_list[2])
         else:
             motors = 0
-        print 'Motors Queried: ' + str(motors)
+        logging.debug('Motors Queried: ' + str(motors))
         return motors
     def qry_magnitudes(self):
     	pass
@@ -72,10 +71,9 @@ class HapticInterface:
             self.set_binary()
         self.ser.write(self.__build_binary(motor, rhythm, magnitude, duration))
         response = self.ser.read(1)
-        for x in response:
-            print ord(x)
         if "\00" not in response:
-            print "Error Vibrating"
+            for x in response:
+                logging.debug( 'Error Vibrating' + ord(x) )
 	def disconnect(self):
 		return 'Disconnect Successful'
 
