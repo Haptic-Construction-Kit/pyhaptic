@@ -1,3 +1,13 @@
+"""
+.. module:: HapticInterface 
+   :platform: Linux, Windows, Mac
+   :synopsis: Part of the Haptic Construction Kit https://github.com/Haptic-Construction-Kit/ 
+
+.. moduleauthor:: see contributors.md
+
+
+"""
+
 import serial
 import time
 import struct
@@ -43,10 +53,31 @@ class HapticInterface:
     	    logging.debug('Error sending ascii command: ' + command)
         return response
     def connect(self):
-        self.ser = serial.Serial(self.comm_choice, timeout=.1)
+        """Attempts a connection over serial to the haptic device.
+
+        Args:
+        none.
+
+        Returns:
+        none.
+
+        Raises:
+        SerialException
+
+        """
+	self.ser = serial.Serial(self.comm_choice, timeout=.1)
         #check that meets min version
     def qry_ver(self):
-        self.__send("QRY VER\n")
+        """Query version number of controller firmware.
+
+        Args:
+            none.
+
+        Returns:
+            int.  The version number of controller firmware:
+
+        """
+	self.__send("QRY VER\n")
         response = self.ser.readline()
         response_list = response.split(" ")
         if ((len(response_list) == 3) & (response_list[0] == "RSP")):
@@ -59,6 +90,15 @@ class HapticInterface:
     def qry_all(self):
     	self.__send("QRY ALL\n")
     def qry_number_motors(self):
+        """Query number of motors present.
+        
+        Args:
+            none.
+        
+        Returns:
+            int.  The number of motors present:
+
+        """
         if not (self.ascii): #we need to be in ascii
             self.set_ascii()
         self.ser.write("QRY MTR\n")
@@ -78,10 +118,22 @@ class HapticInterface:
     	return 'Rhythm Learned'
     def learn_magnitude(self):
     	pass
-    def vibrate(self, motor, rhythm, magnitude, duration):
+    def vibrate(self, motor, rhythm, magnitude, cycles):
+        """Vibrate a motor.
+
+        Args:
+         |  motor(int): Motor to select. 0 indexed.
+         |  rhythm(int): Stored rhythm to select. 0 indexed. Use qry_rhythms to see available and learn_rhythm to store rhythms.
+         |  magnitude(int): Stored magnitude to select. 0 indexed. Use qry_magnitudes to see available and learn_magnitude to store magnitudes.
+         |  cycles(int): Number of times to run stored magnitude. 0-7 are valid. 7 is continuous. 0 is used to interrupt a vibration and disable motor.
+
+        Returns:
+	    none.
+
+        """
         if(self.ascii):
             self.set_binary()
-        self.ser.write(self.__build_binary(motor, rhythm, magnitude, duration))
+        self.ser.write(self.__build_binary(motor, rhythm, magnitude, cycles))
         response = self.ser.read(1)
         if "\00" not in response:
             for x in response:
