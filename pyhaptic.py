@@ -46,18 +46,19 @@ class HapticInterface:
         self.ser = serial.Serial(self.comm_choice, timeout=.1)
         #check that meets min version
     def qry_ver(self):
-        self.__send("QRY VER\n")
+	if not (self.ascii): #we need to be in ascii
+            self.set_ascii()
+        self.ser.write("QRY VER\n")
         response = self.ser.readline()
         response_list = response.split(" ")
-        if ((len(response_list) == 3) & (response_list[0] == "RSP")):
+        ver = 0
+	if ((len(response_list) == 3) & (response_list[0] == "RSP")):
             ver = int(response_list[2])
         else:
             #throw communication exception?
             pass
         logging.debug( 'Version Queried:' + str(ver) )
-        return ver
-    def qry_all(self):
-    	self.__send("QRY ALL\n")
+	return ver
     def qry_number_motors(self):
         if not (self.ascii): #we need to be in ascii
             self.set_ascii()
