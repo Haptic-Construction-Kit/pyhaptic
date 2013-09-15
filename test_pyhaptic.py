@@ -45,7 +45,7 @@ def function_one():
     for x in xrange(number):
         two_d_display.vibrate(x,0,0,1)
         time.sleep(.1)
-    for x in xrange(number,0,-1)):
+    for x in xrange(number,-1,-1):
         two_d_display.vibrate(x,0,0,1)
         time.sleep(.1)
     print "completed one"
